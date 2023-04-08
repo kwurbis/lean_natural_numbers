@@ -40,9 +40,39 @@ rw a_ih,
 rw add_succ}
 end
 
-def my_mul (a b: mynat) : mynat -> mynat -> mynat
+#reduce my_mul zero.succ.succ zero.succ.succ.succi
+
+def my_mul : mynat -> mynat -> mynat
 | zero b := zero
-| (succ a) b := my_add a (my_mul a b)
+| (succ a) b := my_add b (my_mul a b)
+
+lemma mul_zero (a : mynat) : my_mul a zero = zero :=
+begin
+induction a,
+{rw my_mul},
+{rw my_mul,
+rw a_ih,
+rw add_zero}
+end
+
+#Das folgende Lemma kann nicht bewiesen werden da es falsch ist. 
+lemma mul_succ (a b : mynat) : my_mul a b.succ = my_mul a.succ b := 
+begin
+induction a,
+{rw my_mul,
+rw my_mul,},
+{}
+end
+
+lemma my_mull_comm (a b : mynat) : my_mul a b = my_mul b a :=
+begin
+induction a,
+{rw mul_zero,
+rw my_mul},
+{rw my_mul,
+rw a_ih,}
+end
 
 
+ 
 end mynat
