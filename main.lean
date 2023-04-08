@@ -55,24 +55,22 @@ rw a_ih,
 rw add_zero}
 end
 
-#Das folgende Lemma kann nicht bewiesen werden da es falsch ist. 
-lemma mul_succ (a b : mynat) : my_mul a b.succ = my_mul a.succ b := 
-begin
-induction a,
-{rw my_mul,
-rw my_mul,},
-{}
-end
-
-lemma my_mull_comm (a b : mynat) : my_mul a b = my_mul b a :=
+lemma my_mul_comm (a b : mynat) : my_mul a b = my_mul b a :=
 begin
 induction a,
 {rw mul_zero,
 rw my_mul},
 {rw my_mul,
-rw a_ih,}
+rw a_ih,
+sorry}
 end
 
+-- define the <= relation
+def less_eq_than: mynat → mynat → Prop
+| zero a := true
+| (succ a) zero := false
+| (succ a) (succ b) := less_eq_than a b   
 
- 
+ #reduce less_eq_than (succ (succ zero)) (succ zero)
+
 end mynat
