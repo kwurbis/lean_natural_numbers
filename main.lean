@@ -20,7 +20,29 @@ end
 
 lemma add_succ (a b : mynat) : my_add a (succ b) = succ (my_add a b ):=
 begin
-sorry
+induction a,
+{
+  rw my_add, 
+  rw my_add,
+},
+{rw my_add,
+rw my_add,
+rw a_ih,}
 end 
+
+lemma my_add_comm (a b : mynat) : my_add a b = my_add b a :=
+begin
+induction a, 
+{rw my_add,
+rw add_zero},
+{rw my_add,
+rw a_ih,
+rw add_succ}
+end
+
+def my_mul (a b: mynat) : mynat -> mynat -> mynat
+| zero b := zero
+| (succ a) b := my_add a (my_mul a b)
+
 
 end mynat
