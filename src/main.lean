@@ -1,3 +1,5 @@
+import tactic
+
 inductive mynat : Type
 | zero : mynat
 | succ : mynat -> mynat
@@ -65,23 +67,30 @@ rw a_ih,
 sorry}
 end
 
+
+
+
+
 -- define the <= relation
+@[derive decidable_rel]
 def less_eq_than: mynat → mynat → Prop
+| (succ a) (succ b) := less_eq_than a b
 | zero a := true
 | (succ a) zero := false
-| (succ a) (succ b) := less_eq_than a b
+
+
  
 -- proofing less_eq_than is decidable
-instance less_eq_than_decidable (a b : mynat) : decidable (less_eq_than a b):=
-begin
-induction a,
-{rw less_eq_than, apply_instance, --warum löst apply_instance das Problem???
--- was macht diese Taktik?
-},
-{
- sorry -- der Induktionschritt kann nicht bewiesen werden da er falsch ist --> anderen Weg suchen
-}
-end
+-- instance less_eq_than_decidable (a b : mynat) : decidable (less_eq_than a b):=
+-- begin
+-- induction a,
+-- {rw less_eq_than, apply_instance, --warum löst apply_instance das Problem???
+-- -- was macht diese Taktik?
+-- },
+-- {
+--  sorry -- der Induktionschritt kann nicht bewiesen werden da er falsch ist --> anderen Weg suchen
+-- }
+--end
 
  #reduce less_eq_than (succ (succ zero)) (succ zero)
 
@@ -92,6 +101,6 @@ if (less_eq_than x m) then
 else
   x
 
-#eval div_rest zero.succ zero.succ.succ
+--#eval div_rest zero.succ zero.succ.succ
 
 end mynat
