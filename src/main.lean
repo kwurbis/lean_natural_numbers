@@ -1,5 +1,8 @@
 import tactic
 
+-- https://exlean.org/blog/
+-- good tutorial on the usage of lean
+
 inductive mynat : Type
 | zero : mynat
 | succ : mynat -> mynat
@@ -67,8 +70,8 @@ rw a_ih,
 sorry}
 end
 
-
-
+@[derive decidable_rel]
+def near_to (x y : ℕ) : Prop := (x - y) < 5 ∧ (y - x) < 5
 
 
 -- define the <= relation
